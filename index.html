@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camilla Bedmar - Fysiurgisk Massage og Myoreflex</title>
+    <meta name="description" content="Fysiurgisk massage og Myoreflex behandling i København. RAB-godkendt behandler.">
+    
+    <!-- React and Babel -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .fade-in {
+            animation: fadeIn 1.2s ease-out;
+        }
+        
+        .fade-in-delay {
+            animation: fadeIn 1.2s ease-out 0.3s both;
+        }
+        
+        .slide-up {
+            animation: slideUp 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .organic-blob {
+            position: absolute;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            opacity: 0.15;
+            filter: blur(40px);
+            animation: blobFloat 20s ease-in-out infinite;
+        }
+        
+        @keyframes blobFloat {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+        }
+        
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.4s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        // Lucide React Icons as inline SVGs
+        const Calendar = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+        );
+
+        const Mail = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+        );
+
+        const Phone = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+        );
+
+        const X = ({ size = 24, className = "" }) => (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        );
+
+        function CamillaBedmarWebsite() {
+            const [isBookingOpen, setIsBookingOpen] = useState(false);
+            const [bookingForm, setBookingForm] = useState({
+                name: '',
+                email: '',
+                phone: '',
+                service: 'massage',
+                date: '',
+                message: ''
+            });
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                // In production, this would send to a booking system
+                alert(`Tak for din booking, ${bookingForm.name}! Vi kontakter dig snarest.`);
+                setIsBookingOpen(false);
+                setBookingForm({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    service: 'massage',
+                    date: '',
+                    message: ''
+                });
+            };
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-emerald-50">
+                    {/* Navigation */}
+                    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+                        <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+                            <h1 className="section-title text-2xl text-orange-800">Camilla Bedmar</h1>
+                            <div className="flex gap-6 items-center">
+                                <a href="#om-mig" className="text-gray-700 hover:text-orange-600 transition-colors">Om mig</a>
+                                <a href="#massage" className="text-gray-700 hover:text-orange-600 transition-colors">Massage</a>
+                                <a href="#myoreflex" className="text-gray-700 hover:text-orange-600 transition-colors">Myoreflex</a>
+                                <button 
+                                    onClick={() => setIsBookingOpen(true)}
+                                    className="btn-primary text-white px-6 py-2 rounded-full flex items-center gap-2"
+                                >
+                                    <Calendar size={18} />
+                                    Book tid
+                                </button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+                        <div className="organic-blob w-96 h-96 bg-orange-300 top-20 right-10"></div>
+                        <div className="organic-blob w-80 h-80 bg-emerald-300 bottom-20 left-10" style={{ animationDelay: '5s' }}></div>
+                        <div className="organic-blob w-72 h-72 bg-rose-300 top-1/2 left-1/2" style={{ animationDelay: '10s' }}></div>
+                        
+                        <div className="relative z-10 text-center px-6 fade-in">
+                            <h2 className="section-title text-7xl md:text-8xl text-gray-800 mb-6">
+                                Kroppens Balance
+                            </h2>
+                            <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-12 font-light">
+                                Fysiurgisk massage og Myoreflex behandling i hjertet af København
+                            </p>
+                            <button 
+                                onClick={() => setIsBookingOpen(true)}
+                                className="btn-primary text-white px-10 py-4 rounded-full text-lg inline-flex items-center gap-3"
+                            >
+                                <Calendar size={22} />
+                                Bestil tid nu
+                            </button>
+                        </div>
+                    </section>
+
+                    {/* About Section */}
+                    <section id="om-mig" className="relative py-24 px-6">
+                        <div className="max-w-4xl mx-auto slide-up">
+                            <h3 className="section-title text-5xl text-center text-gray-800 mb-16">Om mig</h3>
+                            <div className="card rounded-3xl p-12 shadow-xl">
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    Jeg har været fascineret af kroppen lige så længe jeg kan huske.
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    Fra barndommen i en familie med flere mensendick-undervisere, hvor man gerne fik korrigeret måden at sidde, stå og gå på, så det var i overenstemmelse med bevægeapparatet.
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    Til lidt over 20 år som målmand i ishockey på både klubplan og landshold. Og nu som udøver af Aikido, hvor samarbejde og gensidig forståelse af sin modstanders bevægelser er essentiel.
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed">
+                                    Kroppens evne til at hele, huske og gen-lære er nogen af de vigtigste redskaber i mit arbejde. Og det giver mig stor glæde at kunne formidle denne viden til jer. Så vi i samarbejde kan øge forståelsen af jeres egen krop, og det generelle velvære.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Massage Section */}
+                    <section id="massage" className="relative py-24 px-6 bg-gradient-to-br from-emerald-50/50 to-orange-50/50">
+                        <div className="max-w-4xl mx-auto">
+                            <h3 className="section-title text-5xl text-center text-gray-800 mb-16">Massage</h3>
+                            <div className="card rounded-3xl p-12 shadow-xl">
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    Under fysiurgisk massage, arbejdes der dybt i kroppens bløde væv (muskler, sener, bindevæv) så blodcirkulationen forbedres og infiltrationer løsnes.
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    Massage stimulerer desuden lymfesystemet, så ophobede affaldsstoffer frigives og samtidig udløses det naturlige lykkehormon endorfin, hvorved man føler større ro og velvære.
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed mb-8">
+                                    Fysiurgisk massage bruges desuden til forkortelse af restitutionstid, efter alle former for træning eller skader.
+                                </p>
+                                <div className="bg-orange-50 rounded-2xl p-8 border-l-4 border-orange-500">
+                                    <p className="text-lg text-gray-700 leading-relaxed mb-4">
+                                        <strong>Hver behandling tilrettelægges efter den enkeltes behov og ønsker.</strong>
+                                    </p>
+                                    <p className="text-orange-700 font-semibold">RAB-godkendt</p>
+                                </div>
+                                <div className="mt-8 text-center">
+                                    <button 
+                                        onClick={() => setIsBookingOpen(true)}
+                                        className="btn-primary text-white px-8 py-3 rounded-full inline-flex items-center gap-2"
+                                    >
+                                        Book massage
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Myoreflex Section */}
+                    <section id="myoreflex" className="relative py-24 px-6">
+                        <div className="max-w-4xl mx-auto">
+                            <h3 className="section-title text-5xl text-center text-gray-800 mb-16">Myoreflex</h3>
+                            <div className="card rounded-3xl p-12 shadow-xl">
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    Myoreflex er en manuel behandlingsform, der er udviklet af den tyske læge Dr. Kurt Mosetter.
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    Han har kombineret østlig og vestlig medicin i et system, der betragter kroppen som en helhed og tager hensyn til, at kroppen husker alt!
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    Som når vi har oplevet chok, traumer eller skader vil musklerne trække sig sammen, i et forsøg på at beskytte os. Disse sammentrækninger skaber spændinger i det omkringliggende væv (muskler, sener, nerver og fascier) som derved ikke er i stand til at fungere optimalt.
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                                    Behandlingen foregår helt konkret, som en række tryk på musklens hæfte og udspring på knoglerne, og ofte som kombinationer af punkter i muskelkæderne (se Anatomy Trains).
+                                </p>
+                                <p className="text-lg text-gray-700 leading-relaxed mb-8">
+                                    Der bliver ikke set så meget på, hvor man har smerter, idet smerter oftest er en kompensation eller et symptom på problemer andetsteds i bevægeapparatet. Gennem den manuelle behandling, løsner man de dybe stagnationer i kroppen, og hjælper kroppen til, at genoprette den originale balance.
+                                </p>
+                                
+                                <div className="bg-emerald-50 rounded-2xl p-8 mb-8">
+                                    <h4 className="text-2xl section-title text-gray-800 mb-4">Myoreflex er blandt andet effektivt mod:</h4>
+                                    <div className="grid md:grid-cols-2 gap-4">
+                                        <ul className="space-y-2 text-gray-700">
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Hovedpine, migræne, piskesmæld</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Sportsskader</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Kæbespændinger</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Skulderspændinger</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Golfalbue, tennisalbue</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Karpaltunnelsyndrom</span>
+                                            </li>
+                                        </ul>
+                                        <ul className="space-y-2 text-gray-700">
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Ryg og lændesmerter</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Ischiassmerter</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Uro i ben, knæsmerter</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Forstoppelse, diarre</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Menstruationssmerter</span>
+                                            </li>
+                                            <li className="flex items-start gap-2">
+                                                <span className="text-emerald-600 mt-1">•</span>
+                                                <span>Stress, uro i kroppen</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <p className="text-gray-600 mb-4">Behandlingen er også meget effektiv til børn, og bliver blandt andet anvendt på både det tyske og amerikanske landshold i fodbold.</p>
+                                
+                                <div className="border-t border-gray-200 pt-6 space-y-2">
+                                    <p className="text-gray-600">Læs mere på:</p>
+                                    <a href="https://www.myoreflex.net" target="_blank" rel="noopener noreferrer" className="block text-orange-600 hover:text-orange-700 underline">www.myoreflex.net</a>
+                                    <a href="https://www.anatomytrains.com" target="_blank" rel="noopener noreferrer" className="block text-orange-600 hover:text-orange-700 underline">www.anatomytrains.com</a>
+                                    <a href="https://www.dierenbach.ch/kidheften.htm" target="_blank" rel="noopener noreferrer" className="block text-orange-600 hover:text-orange-700 underline">www.dierenbach.ch/kidheften.htm</a>
+                                </div>
+
+                                <div className="mt-8 text-center">
+                                    <button 
+                                        onClick={() => setIsBookingOpen(true)}
+                                        className="btn-primary text-white px-8 py-3 rounded-full inline-flex items-center gap-2"
+                                    >
+                                        Book Myoreflex behandling
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Contact Section */}
+                    <section className="relative py-24 px-6 bg-gradient-to-br from-orange-100/40 to-emerald-100/40">
+                        <div className="max-w-4xl mx-auto text-center">
+                            <h3 className="section-title text-5xl text-gray-800 mb-12">Kontakt</h3>
+                            <div className="card rounded-3xl p-12 shadow-xl">
+                                <div className="flex flex-col items-center gap-6">
+                                    <div className="flex items-center gap-3 text-lg text-gray-700">
+                                        <Mail className="text-orange-600" size={24} />
+                                        <a href="mailto:kontakt@camillabedmar.dk" className="hover:text-orange-600 transition-colors">
+                                            kontakt@camillabedmar.dk
+                                        </a>
+                                    </div>
+                                    <div className="flex items-center gap-3 text-lg text-gray-700">
+                                        <Phone className="text-orange-600" size={24} />
+                                        <a href="tel:+4512345678" className="hover:text-orange-600 transition-colors">
+                                            +45 XX XX XX XX
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Footer */}
+                    <footer className="bg-gray-800 text-white py-12 px-6">
+                        <div className="max-w-7xl mx-auto text-center">
+                            <p className="section-title text-2xl mb-4">Camilla Bedmar</p>
+                            <p className="text-gray-400">Fysiurgisk massage og Myoreflex behandling</p>
+                            <p className="text-gray-400 mt-4">København • Danmark</p>
+                        </div>
+                    </footer>
+
+                    {/* Booking Modal */}
+                    {isBookingOpen && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+                            <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+                                <div className="p-8">
+                                    <div className="flex justify-between items-center mb-8">
+                                        <h3 className="section-title text-4xl text-gray-800">Book en tid</h3>
+                                        <button 
+                                            onClick={() => setIsBookingOpen(false)}
+                                            className="text-gray-400 hover:text-gray-600 transition-colors"
+                                        >
+                                            <X size={28} />
+                                        </button>
+                                    </div>
+
+                                    <form onSubmit={handleSubmit} className="space-y-6">
+                                        <div>
+                                            <label className="block text-gray-700 mb-2 font-medium">Navn</label>
+                                            <input
+                                                type="text"
+                                                required
+                                                value={bookingForm.name}
+                                                onChange={(e) => setBookingForm({...bookingForm, name: e.target.value})}
+                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
+                                                placeholder="Dit fulde navn"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-gray-700 mb-2 font-medium">Email</label>
+                                            <input
+                                                type="email"
+                                                required
+                                                value={bookingForm.email}
+                                                onChange={(e) => setBookingForm({...bookingForm, email: e.target.value})}
+                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
+                                                placeholder="din@email.dk"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-gray-700 mb-2 font-medium">Telefon</label>
+                                            <input
+                                                type="tel"
+                                                required
+                                                value={bookingForm.phone}
+                                                onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
+                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
+                                                placeholder="+45 XX XX XX XX"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-gray-700 mb-2 font-medium">Behandling</label>
+                                            <select
+                                                value={bookingForm.service}
+                                                onChange={(e) => setBookingForm({...bookingForm, service: e.target.value})}
+                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
+                                            >
+                                                <option value="massage">Fysiurgisk Massage</option>
+                                                <option value="myoreflex">Myoreflex Behandling</option>
+                                                <option value="both">Kombination af begge</option>
+                                            </select>
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-gray-700 mb-2 font-medium">Foretrukken dato</label>
+                                            <input
+                                                type="date"
+                                                required
+                                                value={bookingForm.date}
+                                                onChange={(e) => setBookingForm({...bookingForm, date: e.target.value})}
+                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-gray-700 mb-2 font-medium">Besked (valgfrit)</label>
+                                            <textarea
+                                                value={bookingForm.message}
+                                                onChange={(e) => setBookingForm({...bookingForm, message: e.target.value})}
+                                                rows="4"
+                                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all resize-none"
+                                                placeholder="Fortæl mig om dine ønsker eller eventuelle bekymringer..."
+                                            />
+                                        </div>
+
+                                        <button
+                                            type="submit"
+                                            className="w-full btn-primary text-white py-4 rounded-xl text-lg font-medium flex items-center justify-center gap-2"
+                                        >
+                                            <Calendar size={22} />
+                                            Send bookingforespørgsel
+                                        </button>
+                                    </form>
+
+                                    <p className="text-gray-500 text-sm mt-6 text-center">
+                                        Du vil modtage en bekræftelse på din email inden for 24 timer
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<CamillaBedmarWebsite />);
+    </script>
+</body>
+</html>
