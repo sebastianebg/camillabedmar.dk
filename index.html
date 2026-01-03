@@ -261,8 +261,7 @@
                     <section
                         className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20"
                     >
-                        {/* Overlay for better text readability */}
-                        <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px]"></div>
+                        {/* Overlay removed for direct background visibility */}
 
                         <div className="relative z-10 text-center px-6 fade-in">
                             <h2 className="section-title text-7xl md:text-8xl text-stone-900 mb-6">
@@ -370,16 +369,28 @@
                     <section id="om-mig" className="relative py-24 px-6">
                         <div className="max-w-4xl mx-auto slide-up">
                             <h3 className="section-title text-5xl text-center text-stone-800 mb-16">Om mig</h3>
-                            <div className="card rounded-3xl p-12 shadow-xl">
-                                <p className="text-lg text-stone-700 leading-relaxed mb-6">
-                                    Min interesse for kroppen og dens muligheder, opstod i en ung alder, med flere Mensendieck-undervisere i familien. Så en sund tilgang til bevægeapparatet og sundhed i et større perspektiv, kom nærmest ind med modermælken.
-                                </p>
-                                <p className="text-lg text-stone-700 leading-relaxed mb-6">
-                                    Jeg testede min egen kunnen bla som målmand på det danske kvindelandshold i ishockey, og senere med et sort bælte i Aikido. Og jeg bliver til stadighed glædeligt overrasket over, hvad kroppen (og sindet) er i stand til, når ellers vi giver det muligheden…
-                                </p>
-                                <p className="text-lg text-stone-700 leading-relaxed italic">
-                                    Velkommen :)
-                                </p>
+                            <div className="card rounded-3xl p-8 md:p-12 shadow-xl">
+                                <div className="flex flex-col md:flex-row gap-12 items-center">
+                                    <div className="w-64 h-64 md:w-80 md:h-80 shrink-0 relative">
+                                        <div className="absolute inset-0 border-2 border-purple-200 rounded-2xl translate-x-4 translate-y-4 -z-10"></div>
+                                        <img
+                                            src="./camilla.jpg"
+                                            alt="Camilla Bedmar"
+                                            className="w-full h-full object-cover rounded-2xl shadow-lg border border-white"
+                                        />
+                                    </div>
+                                    <div className="flex-1">
+                                        <p className="text-lg text-stone-700 leading-relaxed mb-6">
+                                            Min interesse for kroppen og dens muligheder, opstod i en ung alder, med flere Mensendieck-undervisere i familien. Så en sund tilgang til bevægeapparatet og sundhed i et større perspektiv, kom nærmest ind med modermælken.
+                                        </p>
+                                        <p className="text-lg text-stone-700 leading-relaxed mb-6">
+                                            Jeg testede min egen kunnen bla som målmand på det danske kvindelandshold i ishockey, og senere med et sort bælte i Aikido. Og jeg bliver til stadighed glædeligt overrasket over, hvad kroppen (og sindet) er i stand til, når ellers vi giver det muligheden…
+                                        </p>
+                                        <p className="text-lg text-stone-700 leading-relaxed italic">
+                                            Velkommen :)
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </section>
