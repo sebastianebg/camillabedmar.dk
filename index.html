@@ -1,68 +1,73 @@
 <!DOCTYPE html>
 <html lang="da">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camilla Bedmar - Fysiurgisk Massage og Myoreflex</title>
     <meta name="description" content="Fysiurgisk massage og Myoreflex behandling i København. RAB-godkendt behandler.">
-    
+
     <!-- React and Babel -->
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Lato:wght@300;400&display=swap"
+        rel="stylesheet">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Lato', sans-serif;
             overflow-x: hidden;
         }
-        
+
         .fade-in {
             animation: fadeIn 1.2s ease-out;
         }
-        
+
         .fade-in-delay {
             animation: fadeIn 1.2s ease-out 0.3s both;
         }
-        
+
         .slide-up {
             animation: slideUp 1s ease-out;
         }
-        
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
         }
-        
+
         @keyframes slideUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         .organic-blob {
             position: absolute;
             border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
@@ -70,42 +75,46 @@
             filter: blur(40px);
             animation: blobFloat 20s ease-in-out infinite;
         }
-        
+
         @keyframes blobFloat {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translate(0, 0) rotate(0deg);
             }
+
             33% {
                 transform: translate(30px, -30px) rotate(120deg);
             }
+
             66% {
                 transform: translate(-20px, 20px) rotate(240deg);
             }
         }
-        
+
         .section-title {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 300;
             letter-spacing: 0.02em;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
             transition: all 0.3s ease;
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
         }
-        
+
         .card {
             background: rgba(255, 255, 255, 0.7);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.8);
             transition: all 0.4s ease;
         }
-        
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -118,6 +127,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="root"></div>
 
@@ -190,7 +200,7 @@
                                 <a href="#om-mig" className="text-gray-700 hover:text-orange-600 transition-colors">Om mig</a>
                                 <a href="#massage" className="text-gray-700 hover:text-orange-600 transition-colors">Massage</a>
                                 <a href="#myoreflex" className="text-gray-700 hover:text-orange-600 transition-colors">Myoreflex</a>
-                                <button 
+                                <button
                                     onClick={() => setIsBookingOpen(true)}
                                     className="btn-primary text-white px-6 py-2 rounded-full flex items-center gap-2"
                                 >
@@ -202,19 +212,21 @@
                     </nav>
 
                     {/* Hero Section */}
-                    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-                        <div className="organic-blob w-96 h-96 bg-orange-300 top-20 right-10"></div>
-                        <div className="organic-blob w-80 h-80 bg-emerald-300 bottom-20 left-10" style={{ animationDelay: '5s' }}></div>
-                        <div className="organic-blob w-72 h-72 bg-rose-300 top-1/2 left-1/2" style={{ animationDelay: '10s' }}></div>
-                        
+                    <section
+                        className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 bg-cover bg-center bg-no-repeat"
+                        style={{ backgroundImage: "url('./header.png')" }}
+                    >
+                        {/* Overlay for better text readability */}
+                        <div className="absolute inset-0 bg-white/60"></div>
+
                         <div className="relative z-10 text-center px-6 fade-in">
                             <h2 className="section-title text-7xl md:text-8xl text-gray-800 mb-6">
-                                Kroppens Balance
+                                Kropsterapi
                             </h2>
                             <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto mb-12 font-light">
-                                Fysiurgisk massage og Myoreflex behandling i hjertet af København
+                                Ved Camilla Bedmar
                             </p>
-                            <button 
+                            <button
                                 onClick={() => setIsBookingOpen(true)}
                                 className="btn-primary text-white px-10 py-4 rounded-full text-lg inline-flex items-center gap-3"
                             >
@@ -266,7 +278,7 @@
                                     <p className="text-orange-700 font-semibold">RAB-godkendt</p>
                                 </div>
                                 <div className="mt-8 text-center">
-                                    <button 
+                                    <button
                                         onClick={() => setIsBookingOpen(true)}
                                         className="btn-primary text-white px-8 py-3 rounded-full inline-flex items-center gap-2"
                                     >
@@ -297,7 +309,7 @@
                                 <p className="text-lg text-gray-700 leading-relaxed mb-8">
                                     Der bliver ikke set så meget på, hvor man har smerter, idet smerter oftest er en kompensation eller et symptom på problemer andetsteds i bevægeapparatet. Gennem den manuelle behandling, løsner man de dybe stagnationer i kroppen, og hjælper kroppen til, at genoprette den originale balance.
                                 </p>
-                                
+
                                 <div className="bg-emerald-50 rounded-2xl p-8 mb-8">
                                     <h4 className="text-2xl section-title text-gray-800 mb-4">Myoreflex er blandt andet effektivt mod:</h4>
                                     <div className="grid md:grid-cols-2 gap-4">
@@ -357,7 +369,7 @@
                                 </div>
 
                                 <p className="text-gray-600 mb-4">Behandlingen er også meget effektiv til børn, og bliver blandt andet anvendt på både det tyske og amerikanske landshold i fodbold.</p>
-                                
+
                                 <div className="border-t border-gray-200 pt-6 space-y-2">
                                     <p className="text-gray-600">Læs mere på:</p>
                                     <a href="https://www.myoreflex.net" target="_blank" rel="noopener noreferrer" className="block text-orange-600 hover:text-orange-700 underline">www.myoreflex.net</a>
@@ -366,7 +378,7 @@
                                 </div>
 
                                 <div className="mt-8 text-center">
-                                    <button 
+                                    <button
                                         onClick={() => setIsBookingOpen(true)}
                                         className="btn-primary text-white px-8 py-3 rounded-full inline-flex items-center gap-2"
                                     >
@@ -416,7 +428,7 @@
                                 <div className="p-8">
                                     <div className="flex justify-between items-center mb-8">
                                         <h3 className="section-title text-4xl text-gray-800">Book en tid</h3>
-                                        <button 
+                                        <button
                                             onClick={() => setIsBookingOpen(false)}
                                             className="text-gray-400 hover:text-gray-600 transition-colors"
                                         >
@@ -431,7 +443,7 @@
                                                 type="text"
                                                 required
                                                 value={bookingForm.name}
-                                                onChange={(e) => setBookingForm({...bookingForm, name: e.target.value})}
+                                                onChange={(e) => setBookingForm({ ...bookingForm, name: e.target.value })}
                                                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
                                                 placeholder="Dit fulde navn"
                                             />
@@ -443,7 +455,7 @@
                                                 type="email"
                                                 required
                                                 value={bookingForm.email}
-                                                onChange={(e) => setBookingForm({...bookingForm, email: e.target.value})}
+                                                onChange={(e) => setBookingForm({ ...bookingForm, email: e.target.value })}
                                                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
                                                 placeholder="din@email.dk"
                                             />
@@ -455,7 +467,7 @@
                                                 type="tel"
                                                 required
                                                 value={bookingForm.phone}
-                                                onChange={(e) => setBookingForm({...bookingForm, phone: e.target.value})}
+                                                onChange={(e) => setBookingForm({ ...bookingForm, phone: e.target.value })}
                                                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
                                                 placeholder="+45 XX XX XX XX"
                                             />
@@ -465,7 +477,7 @@
                                             <label className="block text-gray-700 mb-2 font-medium">Behandling</label>
                                             <select
                                                 value={bookingForm.service}
-                                                onChange={(e) => setBookingForm({...bookingForm, service: e.target.value})}
+                                                onChange={(e) => setBookingForm({ ...bookingForm, service: e.target.value })}
                                                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
                                             >
                                                 <option value="massage">Fysiurgisk Massage</option>
@@ -480,7 +492,7 @@
                                                 type="date"
                                                 required
                                                 value={bookingForm.date}
-                                                onChange={(e) => setBookingForm({...bookingForm, date: e.target.value})}
+                                                onChange={(e) => setBookingForm({ ...bookingForm, date: e.target.value })}
                                                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all"
                                             />
                                         </div>
@@ -489,7 +501,7 @@
                                             <label className="block text-gray-700 mb-2 font-medium">Besked (valgfrit)</label>
                                             <textarea
                                                 value={bookingForm.message}
-                                                onChange={(e) => setBookingForm({...bookingForm, message: e.target.value})}
+                                                onChange={(e) => setBookingForm({ ...bookingForm, message: e.target.value })}
                                                 rows="4"
                                                 className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition-all resize-none"
                                                 placeholder="Fortæl mig om dine ønsker eller eventuelle bekymringer..."
@@ -520,4 +532,5 @@
         root.render(<CamillaBedmarWebsite />);
     </script>
 </body>
+
 </html>
